@@ -1,0 +1,375 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+
+    <title>WSD 2017 - Course Outline</title>
+
+    <meta name="description" content="Outline for the WSD 2017 course">
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+
+    <link rel="stylesheet" href="lib/reveal.js-3.1.0/css/reveal.css">
+    <link rel="stylesheet" href="lib/reveal.js-3.1.0/css/theme/moon.css" id="theme">
+
+    <link rel="stylesheet" href="lib/highlight/styles/monokai_sublime.css">
+
+    <link rel="stylesheet" href="extra/custom.css">
+
+    <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+    <script>
+      if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = 'lib/reveal.js-3.1.0/css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+      }
+    </script>
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+
+  </head>
+
+  <body>
+
+    <div class="reveal">
+      <div class="slides">
+
+      <section style="text-align: center">
+        <h1>Seitti 2017</h1>
+        <h2>Welcome to Web Software Development</h2>
+        <h3>TIE-23500, Web ohjelmointi</h3>
+        <h3>TIE-23506, Web software development</h3>
+
+        <p><small>
+          <a href="http://www.cs.tut.fi/~ihantola/">Petri Ihantola</a> <br>(materials based on WSD lectures by Otto Seppälä, Lassi Haaranen, Petri Ihantola and Teemu Lehtinen from Aalto University)
+          </small>
+        </p>
+      </section>
+
+      <section>
+        <h2>About The Course</h2>
+        <h3>Learning Outcomes</h3>
+        <blockquote>"Student understands the distributed nature of a web application, session management and how the different parts of the application can communicate with each other. Student is able to design, implement, and deploy a small web application using a modern web application framework. Student knows how to test and debug a web application and has basic understanding of technologies and issues such as object relational mapping, security, efficiency, and scalability."</blockquote>
+      </section>
+
+      <!--section>
+        <h2>About The Course</h2>
+        <h3>Major Differences to 2015</h3>
+        <ul>
+          <li>Staff</li>
+          <li>Mandatory, automatically assessed, exercises in 3rd period</li>
+          <li>Using Django, instead of node.js</li>
+          <li>Grading - role of the exam will be smaller and the role of the project will more important</li>
+         </ul>
+      </section-->
+
+      <section>
+        <h2>About The Course</h2>
+        <h3>Learning Outcomes</h3>
+        <p>Skills</p>
+        <ul>
+          <li>You should be able to design, implement, and deploy a small web application using a modern web application framework.</li>
+          <li>Testing and debugging web applications... </li>
+        </ul>
+        <p>Knowledge</p>
+        <ul>
+          <li>... security, efficiency, scalability, accessibility... </li><li> ... ORM, AJAX, DOM, REST, </li>
+        </ul>
+
+      </section>
+
+      <section>
+        <h2>Course Personnel</h2>
+        <p>Responsible Teacher: Petri Ihantola</p>
+        <p>Teaching Assistants: Mikko Nurminen </p>
+      </section>
+
+      <section>
+        <h2>Bird's Eye View of Course Content</h2>
+        <p>User &lt;-<span style="color: green">-&gt; Browser &lt;--&gt; Web Service &lt;-</span>-&gt; Database</p>
+        <p>This course roughly deals with the area marked with green.</p>
+      </section>
+
+      <section>
+        <h2>About The Course</h2>
+        <p>Please sign up in POP.</p>
+
+        <h3>Prerequisites</h3>
+        <p><em>Programming</em> Experience with big enough personal project</p>
+        <p><em>Databases</em> You need to understand databases, but programming framework will handle most of the stuff.</p>
+        <h3>Academic Integrity</h3>
+        <p>You are supposed to understand what you have done personally - and what not</p>
+      </section>
+
+      <section>
+        <h2>Course Outline</h2>
+        <p>The course consists of: <em>lectures</em>, <em>exercises</em>, <em>exam</em>, <em>group project</em>, and <em>exam</em>.</p>
+        <ul>
+        <li>Personal exercises in Term 3</li>
+        <li>Lectures in Term 3</li>
+        <li>Exam in between terms 3 and 4 (not in POP yet)
+        <li>Project in small groups in Term 4</li>
+        </ul>
+      </section>
+<!--
+      <section>
+        <h2>Course - Fall Lectures</h2>
+        <p>Preliminary schedule for fall lectures</p>
+        <table style="font-size: 80%">
+          <tr>
+            <th></th>
+            <th>Week 1</th>
+            <th>Week 2</th>
+            <th>Week 3</th>
+            <th>Week 4</th>
+            <th>Week 5</th>
+            <th>Week 6</th>
+          </tr>
+          <tr>
+            <th>Tuesday</th>
+            <td>Course and WSD introduction</td>
+            <td>Intro to Python</td>
+            <td>MVC and Intro to Django</td>
+            <td>Django</td>
+            <td>Django forms</td>
+            <td>Sessions, Authentication</td>
+          </tr>
+
+          <tr>
+            <th>Wednesday</th>
+            <td>HTML &amp; CSS</td>
+            <td>JavaScript</td>
+            <td>JavaScript in Browser</td>
+            <td>APIs</td>
+            <td>Security</td>
+            <td>Testing</td>
+          </tr>
+        </table>
+        <p>Lecture topics for Term 4 will be announced later.</p>
+      </section>
+-->
+      <section>
+        <h2>Course - Lecture Slides</h2>
+        <p>The lecture slides will available in the course repository, <a href="https://gitlab.rd.tut.fi/seitti/seitti2017">https://gitlab.rd.tut.fi/seitti/seitti2017</a>.</p>
+        <p>To create files for printing to pdf append <code>?print-pdf</code> to the url.</p>
+        <p class="extra">More information about the slides and how to print them <a href="https://github.com/hakimel/reveal.js/">reveal.js</a>
+      </section>
+
+      <section>
+        <h2>Slide Notation</h2>
+        <p>Specific terms and commands within the text will be marked with <code>&lt;code&gt;</code> element. Code samples look like this:</p>
+        <pre><code>//JavaScript sample
+alert("Hello World!");</code></pre>
+        <p>Slides are also color-coded. This slide has the default background. Colors roughly correspond to </p>
+        <p><span class="box html_color" style="color: white; padding: 1%;">HTML</span>
+          <span class="box css_color" style="color: white; padding: 1%;">CSS</span>
+          <span class="box js_color" style="color: white; padding: 1%;">JavaScript</span>
+          <span class="box python_color" style="color: white; padding: 1%;">Python &amp; Django</span>
+        </p>
+        <p class="extra">Extra material looks like this. They usually contain links to useful material that go beyond the course content.</p>
+      </section>
+
+      <section>
+        <h2>Course - Exercises</h2>
+        <p>Seven rounds of exercises covering five general topics (i.e., Setting up, HTML/CSS, Javascript, Python, and Django):</p>
+        <ul class="dense">
+          <li>Setting Up Tools, DL: Jan 22</li>
+          <li>HTML/CSS, DL: Jan 22</li>
+          <li>JavaScript 1, DL: Jan 29</li>
+          <li>Python, DL: Jan 29</li>
+          <li>Django 1, DL: Feb 5</li>
+          <li>JavaScript 2, DL: Feb 12</li>
+          <li>Django 2, DL: Feb 19</li>
+        </ul>
+        <p class="dense">At the very least you must pass one exercise round <em>from each topic</em>: Tools, HTML/CSS, JavaScript, Python, Django.</p>
+        <p class="dense">Passing all seven exercise rounds will give +1 towards the final course grade. Failing to complete a round from any of the topic <em>will result in a failing grade from the course</em>.</p>
+      </section>
+
+      <section>
+        <h2>Lectures and Exercise Lectures</h2>
+        <p>No mandatory attendance and no extra points from attending.</p>
+
+      </section>
+
+      <section>
+        <h2>Course - Exam</h2>
+        <p>Covers exercises and lectures, i.e., project work is excluded</p>
+        <p>Sign up for the exams. Passing the exam is mandatory, exam is graded fail, pass, pass +1. </p>
+        <p>There will be an additional exam between Terms 3 and 4</p>
+      </section>
+
+      <section>
+        <h2>Course - Project</h2>
+        <p>During Term 4 there is a course project that is completed in groups of 3 people.</p>
+        <p>In the project you will create in teams a web service. The project topic and framework is set.</p>
+        <p>The project grading is as follows: fail, +1, +2, +3 to course grade. Note that this will contribute the most for your final grade, that is an indication where the largest workload is.</p>
+        <p>We'll talk more about this later.</p>
+      </section>
+
+      <section>
+        <h2>Course - Grading</h2>
+        <p>Your final grade will be the sum of your grades as follows:</p>
+        <ul class="dense">
+          <li>Exercises: fail, pass, +1</li>
+          <li>Exam: fail, pass, +1</li>
+          <li>Project: fail, +1, +2, +3</li>
+        </ul>
+        <p>You need at least a passing grade from everything to pass the course.</p>
+        <p>Example:</p>
+        <table style="font-size: 80%;">
+          <tr><th>Area</th><th>Result</th><th>Effect on Grade</th></tr>
+          <tr><td>Exercises</td><td>Six rounds completed</td><td> +0</td></tr>
+          <tr><td>Exam</td><td>Pass with +1</td><td> +1</td></tr>
+          <tr><td>Project</td><td>Completed with 2</td><td> +2</td></tr>
+          <tr><td>Course</td><td></td><td><strong>3</strong></td></tr>
+        </table>
+      </section>
+
+      <section>
+        <h2>Exercises</h2>
+        <p>Exercises are done in <a href="https://plus.cs.tut.fi/">TUT+</a> (A+).</p>
+        <p>The system is not open yet, will be opened next monday</p>
+      </section>
+
+
+      <section>
+        <h2>Tools</h2>
+        <p>Suitable editor is highly recommended on the course.</p>
+        <p><a href="http://www.sitepoint.com/sitepoint-smackdown-atom-vs-brackets-vs-light-table-vs-sublime-text/">A review</a> of good alternatives is available.</p>
+        <p>If you have no previous preferences, <a href="https://atom.io/">Atom.io</a> is a good option, with many useful plugins available for (web) development. Note that there are binaries available for Atom for Windows/Linux, unlike the linked review states.</p>
+      </section>
+
+      <section>
+        <h2>Very Brief Introduction to Version Control Systems</h2>
+        <blockquote>"Can you email me the current home page html-file...?"</blockquote>
+<pre><code class="md">$ cd public_html
+$ ls
+
+May 15 20:24 index_old.html
+Jul 14 23:10 index_NEW_LOGO.html
+Jul 14 22:44 index_html_v1_final.html
+Sep 12 09:44 index_old_OLD.html
+Oct 14 22:44 index_html_v1_final_FINAL.html
+Nov 15 16:10 index_html_old_v1_FINAL_OCTOBER_DRAFT.html
+</code></pre>
+        <p>This is web <em>software development</em> course... And any software development without version control is not worth calling software development.</p>
+      </section>
+
+      <section>
+        <h2>GIT</h2>
+        <p><img src="img/git.png" alt="git"></p>
+        <p>Git can be downloaded from <a href="http://git-scm.com">http://git-scm.com</a>. There is also a <a href="http://git-scm.com/book/en">freely available book</a> on the site. Sections 2.2, 2.3, 2.4, and 2.5 cover most of what is needed on the course.</p>
+      </section>
+
+      <section>
+        <h2>GIT on This Course</h2>
+        <p>You will first <code>fork</code> (once) the official material repository. Then you will <code>clone</code> it to your local computer. You work on exercises and <code>commit</code> your work locally. Then you will <code>push</code> those commits to your GitLab repository (and at this point you can submit your work in TUT+ to be graded).</p>
+        <p>Exercise instructions for the first round can be found in A+ and in the course repository.</p>
+        <p>The rest of the rounds will have <em>instructions only in the repository</em>.</p>
+        <p>Instructions to get you started with the course workflow are in TUT+ in the exercises <a href="https://plus.cs.hut.fi/exercise/644/">Exercise 01 - Getting Started With GitLab</a> and <a href="https://plus.cs.hut.fi/exercise/643/">Exercise 02 - Getting Started With Git</a>.</p>
+      </section>
+
+      <section>
+        <h2>Overview of First Exercise</h2>
+        <ol>
+          <li>Login to: <a href="https://gitlab.rd.tut.fi">https://gitlab.rd.tut.fi</a></li>
+          <li>Fork project: seitti / seitti2016</li>
+          <li>Set your forked project to private and add <code>wsd-agent</code> as project member with at least <code>Reporter</code> access</li>
+          <li>Login to TUT+: <a href="https://plus.cs.tut.fi/">https://plus.cs.tut.fi/</a></li>
+          <li>Submit the exercise by submitting your project URL</li>
+        </ol>
+        <p>For more detailed instructions go to: <a href="https://plus.cs.tut.fi/">https://plus.cs.tut.fi/</a></p>
+      </section>
+
+      <section>
+      <h2>Overview of Second Exercise</h2>
+        <ol>
+          <li>Install git (if not already installed) to your computer</li>
+          <li>Generate and set your SSH key to GitLab</li>
+          <li>Clone your seitti2016 project to your local computer</li>
+          <li>Solve the exercise as detailed in the description</li>
+          <li>Add your changes, commit them and then push your commit to GitLab</li>
+          <li>Submit Exercise to TUT+</li>
+        </ol>
+        <p>For more detailed instructions go to: <a href="https://plus.cs.tut.fi/">https://plus.cs.tut.fi/</a></p>
+      </section>
+
+      <section class="general_topic">
+        <h2>DEMO: Solving <br> the first two exercises</h2>
+      </section>
+
+      <section>
+        <h2>Third Exercise</h2>
+        <p>If your browser is relatively up to date this exercise can be completed without any additional browser extensions.</p>
+        <p>The idea is to get you acquainted with browser tools to inspect web pages.</p>
+        <p>It is a good idea to load the page with the browser tools open, so request and response content is stored.</p>
+        <p>If you do not have a recent browser, download one as soon as you can. The exercise has been tested with recent versions of Chrome, Firefox, IE10+, and Opera. And Safari works too, but you need to manually enable the developer tools first.</p>
+      </section>
+
+      <section>
+        <h2>Contents of The Course Repository</h2>
+        <p><img src="img/course_material.png" alt="Course material organization"></p>
+        <p>This material will update throughout the course. More information on how to get the latest material will be discussed in future lectures.</p>
+      </section>
+
+      <section>
+        <h2>Course - How to Get Help</h2>
+        <p style="float: left;"><img src="img/aplus_piazza_link.png" alt="Piazza Link"></p>
+
+        <p style="text-align: right;" class="dense">In addition to exercise group, you can ask questions and get help is through Piazza (link on the left sidebar). Notice that if you log into Piazza, your name and email address is transferred there. You can read <a href="https://piazza.com/legal/privacy">Piazza's privacy policy here</a>.</p>
+        <p class="dense" style="clear: both;">You can also get help in the exercise groups. Additionally there is an (unofficial) slack channel <a href="https://seitti.slack.com/signup">https://seitti.slack.com/signup</a>.</p>
+      </section>
+
+      <section>
+        <h2>Very Quick Recap</h2>
+        <p>Get started with exercises in <a href="https://plus.cs.tut.fi">TUT+</a></p>
+        <p>Ask questions about the course in Piazza</p>
+        <p>Attend lectures on Tuesdays and Thursdays at 12:30-14:00 in TB111</p>
+      </section>
+
+      </div>
+    </div>
+
+    <script src="lib/reveal.js-3.1.0/lib/js/head.min.js"></script>
+    <script src="lib/reveal.js-3.1.0/js/reveal.js"></script>
+    <script src="lib/jquery-1.11.1.min.js"></script>
+
+    <script>
+
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        fragments: true,
+
+        theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+        transition: Reveal.getQueryHash().transition || 'linear', // default/cube/page/concave/zoom/linear/fade/none
+
+        // Parallax scrolling
+        // parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+        // parallaxBackgroundSize: '2100px 900px',
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+          { src: 'lib/reveal.js-3.1.0/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'lib/reveal.js-3.1.0/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: 'lib/reveal.js-3.1.0/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: 'lib//highlight/highlight.pack.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+          { src: 'lib/reveal.js-3.1.0/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: 'lib/reveal.js-3.1.0/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+        ]
+      });
+    </script>
+  </body>
+</html>
