@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -41,17 +42,19 @@
       'use strict';
       ok(typeof rotate !== "undefined", "Is function rotate defined?");
       ok(jQuery.isFunction(rotate), "Is rotate a function?");
+
       var a = [1, 2, 3, 4];
       rotate(a);
-      deepEqual(a, [1, 2, 3, 4], "Testing provided example case");
-      rotate(a, -1);
-      deepEqual(a, [2, 3, 4, 1], "Testing provided example case");
-      rotate(a, 10);
       deepEqual(a, [4, 1, 2, 3], "Testing provided example case");
+      rotate(a, -1);
+      deepEqual(a, [1, 2, 3, 4], "Testing provided example case");
+      rotate(a, 10);
+      deepEqual(a, [3, 4, 1, 2], "Testing provided example case");
       rotate(a, -5);
-      deepEqual(a, [1, 2, 3, 4], "Testing provided example case");
+      deepEqual(a, [4, 1, 2, 3], "Testing provided example case");
       rotate(a, 0);
-      deepEqual(a, [1, 2, 3, 4], "Testing provided example case");
+      deepEqual(a, [4, 1, 2, 3], "Testing provided example case");
+
     });
     </script>
 
