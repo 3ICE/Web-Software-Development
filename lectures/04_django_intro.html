@@ -1,0 +1,954 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+
+    <title>Web (Frameworks) and Django</title>
+
+    <meta name="description" content="MVC and Django">
+    <meta name="author" content="Lassi Haaranen">
+    <meta name="author" content="Otto Seppälä">
+    <meta name="author" content="Petri Ihantola">
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+
+    <link rel="stylesheet" href="lib/reveal.js-3.1.0/css/reveal.css">
+    <link rel="stylesheet" href="lib/reveal.js-3.1.0/css/theme/moon.css" id="theme">
+
+    <link rel="stylesheet" href="lib/highlight/styles/monokai_sublime.css">
+
+    <link rel="stylesheet" href="extra/custom.css">
+    <style>
+      body {
+        background: #142915;
+        background-color: #142915;
+      }
+    </style>
+
+    <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+    <script>
+      if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = 'lib/reveal.js-3.1.0/css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+      }
+    </script>
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+
+  </head>
+
+  <body>
+
+    <div class="reveal">
+      <div class="slides">
+
+
+      <section class="general_topic">
+        <h1>Web (Frameworks) and Django</h1>
+        <p><small>Petri Ihantola</small></p>
+      </section>
+
+    <section class="python-tutorial"  data-background="#142915">
+
+      <section>
+        <h1>Python</h1>
+        <h2>A Brief Introduction</h2>
+        <p>This self study material is not covered in lectures. Use this to recall your Python programming skills, especially if you have not done Python for a while.</p>
+
+
+      </section>
+
+      <section>
+        <h2>More self study material</h2>
+        <p>There are many great resources for learning Python available online. One of those is free book called <a href="http://www.diveintopython3.net/">Dive Into Python 3</a>. For this course, chapters 0,1,2,3,4, and 7 cover most what is needed.</p>
+        <p>In addition, it's advisable to read ProgrammingBits tutorial on <a href="http://programmingbits.pythonblogs.com/27_programmingbits/archive/50_function_decorators.html">function decorators</a>.</p>
+        <p class="extra">The official Python site also has a nice <a href="https://wiki.python.org/moin/BeginnersGuide/NonProgrammers">list of tutorials</a> for beginners (in Python or programming in general).</p>
+      </section>
+
+      <section>
+        <h2>Python Generally</h2>
+        <blockquote>"Python is an easy to learn, powerful programming language. It has efficient high-level data structures and a simple but effective approach to object-oriented programming. Python’s elegant syntax and dynamic typing, together with its interpreted nature, make it an ideal language for scripting and rapid application development in many areas on most platforms." <a href="https://docs.python.org/3.5/tutorial/">The Python Tutorial</a></blockquote>
+        <p>Currently there are two different versions of Python that are widely used: <code>Python 2</code> and <code>Python 3</code>. We will use Python 3 on this course. The versions are quite similar (on the surface) but not completely compatible.</p>
+      </section>
+
+      <section>
+        <h2>Getting started with Python</h2>
+        <p><img style="width: 60%;" src="img/python_website.png" alt="Python Website Screenshot"></p>
+        <p>You can test if you have Python by running <code>python3</code> on the command line. (<code>python</code> in Windows)</p>
+      </section>
+
+      <section>
+        <h2>Running Python</h2>
+        <p>There are two ways you run Python code: either by running a file containing the code: <code>python3 hello_user.py</code> or by just typing <code>python3</code> and writing some code interactively.</p>
+        <p>Let's try both.</p>
+      </section>
+
+      <section>
+        <h2>Comments in Python</h2>
+
+        <p>A quick note on how comments work in Python, they are used in the coming slides</p>
+        <p>Single line comments start with <code>#</code> and documentation strings (multiline comments) are noted with <code>"""</code>. That's all there is.</p>
+        <pre><code class="python">"""
+This example illustrates comment usage in Python.
+This is a multiline comment.
+"""
+
+# Assigning a value to 'name' variable
+name = "Comment example"  # Single line comments can live here too
+
+# End of example</code></pre>
+        <p>All the usual advice about using comments applies!</p>
+      </section>
+
+      <section>
+        <h2>Indentation</h2>
+        <p>In JavaScript blocks of code, like a function or an if-statement, were defined with curly braces. In Python there are no curly braces but blocks are defined by indentation, for example:</p>
+        <pre><code class="python3">some_variable = True
+
+# Since some_variable has True as a value "It's true!" will be printed
+if some_variable == True:
+  print("It's true!")
+else:
+  print("It's false!")</code></pre>
+        <p>Similarly indentation is used when defining functions, loops, classes etc. We'll see this in coming slides.</p>
+        <p>Because indentation plays such a crucial role in Python, a good editor is very highly recommended.</p>
+      </section>
+
+      <section>
+        <h2>Variables</h2>
+        <p>Variables are not declared, they get created by assignment statements</p>
+        <pre><code class="python">my_variable = 3 # create my_variable by assigning 3 to it
+my_other_variable = my_variable + 1 # my_other_variable will be 4</code></pre>
+        <p>Python is dynamically typed: variables will have whatever type their value has. Errors are discovered at run-time:</p>
+        <pre><code>a = 3.5 # a is a number
+a = 'three' # a is a string
+b = a + 3 # can't concat string and int
+# Results in error:
+# TypeError: cannot concatenate 'str' and 'int' objects (Python 2)
+# TypeError: Can't convert 'int' object to str implicitly (Python 3)
+</code></pre>
+      </section>
+
+      <section>
+        <h2>Values</h2>
+        <p><code>integer</code>, <code>float</code>, <code>string</code>, <code>Unicode string</code>, <code>Boolean</code> (True/False, note capitalization), <code>tuple</code>, <code>list</code>, <code>functions</code>...</p>
+        <p>Type conversions are explictit:</p>
+        <pre><code>a = 3.5 # a is a number
+a = 'three' # a is a string
+b = a+str(3) # 'three3'
+str(35)  #'35'
+int("42") # 42
+float("45.3") # 45.3
+int(45.5) # 45
+</code></pre>
+        <p>There is also special value <code>None</code> it's Python's equivalent of <code>Null</code>. For instance, functions without return values return <code>None</code>.</p>
+      </section>
+
+      <section>
+        <h2>Strings</h2>
+        <p>String literals are marked with either single or double quotes. By using triple quotes multiline strings can be created. </p>
+        <p>Raw strings are created by prefixing string literal with <code>r</code>. This might be quite useful later in Django URL configurations.</p>
+        <pre><code class="python">text = 'This is fine.'
+another_text = "And so is this."
+some_quote = "He said: \"It's a fine day\"." # mixing quotes
+same_quote = 'He said: "It\'s a fine day".' # mixing quotes
+raw_string = r'My string with \ character' # raw string
+# By E. A. Poe
+raven_first_verse = """
+Once upon a midnight dreary, while I pondered, weak and weary,
+Over many a quaint and curious volume of forgotten lore-
+    While I nodded, nearly napping, suddenly there came a tapping,
+As of some one gently rapping, rapping at my chamber door.
+"'Tis some visitor," I muttered,"tapping at my chamber door-
+            Only this and nothing more."
+"""</code></pre>
+      </section>
+      <section>
+        <h2>Strings and Slicing</h2>
+        <p>Strings are concatenated with <code>+</code> and repeated with <code>*</code>.</p>
+        <p>Strings are immutable (you cannot change them).</p>
+        <p>Parts of strings can be accessed with string slicing <code>[start:stop:step]</code> notation.</p>
+        <pre><code class="python">a = "world"
+b = "hello" * 3
+c = b + " " + a # 'hellohellohello world'
+test = 'abcdef'
+test[2] # 'c'
+test[2:4] # 'cd'
+test[2:] # 'cdef'
+test[:4] # 'abcd'
+test[1:-2] # 'bcd', ignore first from beginning and two from the end
+test[::2] # 'ace', take every second character
+test[::-1] # 'fedcba', think about how this works
+</code></pre>
+      </section>
+
+      <section>
+        <h2>String Methods</h2>
+        <p style="size=90%;">Apart from <code>find</code>, which returns an <code>int</code>, all of these will return a new <code>string</code> and will not modify the original variable.
+        <p>Some useful string methods (there are plenty more):</p>
+        <pre  style="width:115%;"><code class="python">line = "Once upon a midnight dreary, while I pondered, weak and weary"
+
+# find gives index of first instance, or -1 if not found
+line.find('eary') # 23
+
+# Replace all occurences of first argument with second argument
+line.replace('eary', 'afty') #'Once upon a midnight drafty, while I pondered, weak and wafty'
+
+# Split string into list using comma
+line.split(',') # ['Once upon a midnight dreary', ' while I pondered', ' weak and weary']
+
+# Join a list with pipe character
+'|'.join(line.split(',')) # 'Once upon a midnight dreary| while I pondered| weak and weary'
+
+# To uppercase, there is also corresponding .lower()
+line.upper() # 'ONCE UPON A MIDNIGHT DREARY, WHILE I PONDERED, WEAK AND WEARY'
+
+#strip white space from both ends
+"   hello ".strip() # 'hello'
+</code></pre>
+      </section>
+
+      <section>
+        <h2>About Unicode</h2>
+        <p>In Python 2.x strings are limited when it comes to what characters they can contain. This is fixed in Python 3.x. You can get around the limitations by prefixing the literal with <code>u</code>.</p>
+        <pre style="width:117%;"><code class="python"># In Python 2
+my_string = u'special unicode\u0020string'</code></pre>
+        <pre  style="width:117%;"><code class="python"># In Python 3
+print("Look a snowman \u2603!") # prints: Look a snowman ☃!</code></pre>
+        <p>If you want to print out to terminal, you might also need to set <code>environment variable</code> <code>PYTHONIOENCODING</code> to <code>utf-8</code></p>
+        <pre style="width:117%;"><code class="sh">&gt;&gt;&gt; print("Look a snowman \u2603!")
+Traceback (most recent call last):
+  File "&lt;stdin&gt;", line 1, in &lt;module&gt;
+UnicodeEncodeError: 'ascii' codec cannot encode character '\u2603' in position 15: ordinal not in range(128)
+$ export PYTHONIOENCODING=utf-8
+$ python3
+Type "help", "copyright", "credits" or "license" for more information.
+&gt;&gt;&gt; print("Look a snowman \u2603!")
+Look a snowman ☃!
+</code></pre>
+      </section>
+
+      <section>
+        <h2>String Formatting</h2>
+        <p style="size=70%;">Concatenating strings (and other things) for display will make you run into unexpected <code>TypeError</code>s. To avoid this problem there is a format method for strings, used as such: </p>
+
+        <pre style="width:105%;"><code class="python">&gt;&gt;&gt; '{0}, {1}, {2}'.format('a', 'b', 'c')
+'a, b, c'
+&gt;&gt;&gt; '{}, {}, {}'.format('a', 'b', 'c')  # 3.1+ only
+'a, b, c'
+&gt;&gt;&gt; '{2}, {1}, {0}'.format('a', 'b', 'c')
+'c, b, a'
+&gt;&gt;&gt; '{2}, {1}, {0}'.format(*'abc')      # unpacking argument sequence
+'c, b, a'
+&gt;&gt;&gt; '{0}{1}{0}'.format('abra', 'cad')   # arguments indices can be repeated
+'abracadabra'
+&gt;&gt;&gt; 'Coordinates: {lat}, {long}'.format(lat='37.24N', long='-115.81W')
+'Coordinates: 37.24N, -115.81W'
+&gt;&gt;&gt; coord = {'latitude': '37.24N', 'longitude': '-115.81W'}
+&gt;&gt;&gt; 'Coordinates: {latitude}, {longitude}'.format(**coord)
+'Coordinates: 37.24N, -115.81W'</code></pre>
+        <p>Example from <a href="https://docs.python.org/3/library/string.html#format-string-syntax">Python 3 documentation</a>. Read more about string formatting syntax there.</p>
+      </section>
+
+      <section>
+        <h2>Lists and Tuples</h2>
+        <p>Lists are <em>mutable</em> collections of values and tuples are <em>immutable</em> collections of values. In other respects they work similarly, except trying to change contents of a tuple will result in error. Lists are noted with <code>[]</code> and tuples with <code>()</code>.</p>
+        <pre><code class="python"># Let's look at a list of different Pythons
+pythons = ["Angolan", "Burmese", "Sumatran short-tailed "]
+pythons.append("Royal") #add to the end of the list
+pythons[0] # 'Angolan' indexing from zero
+pythons[-1] # 'Royal' negative indices start at the end
+
+# Slicing as with strings
+pythons[2:] # ['Sumatran short-tailed ', 'Royal']
+pythons[:2] # ['Angolan', 'Burmese']
+pythons[1:3] # ['Burmese', 'Sumatran short-tailed ']
+pythons[::-2] # ['Royal', 'Burmese'] every other in reverse order
+
+# This will print Pythons on separate lines
+for snake in pythons:
+  print(snake)
+
+if "Royal" in pythons:
+  print("Royal is a Python")
+</code></pre>
+
+      </section>
+
+      <section>
+        <h2>List Methods</h2>
+        <p>Some useful methods for lists:</p>
+        <pre><code class="python">my_list.sort() # Sorts the list
+my_list.append(element) # Add element at the end of the list
+
+# appends the other list to the end of this one
+my_list.extend(other_list)
+
+# Returns the index of element or
+# throws ValueError if element is not in list
+my_list.index(element)
+
+my_list.remove(element) # removes element
+# Inserts a new element to the list into the specified location
+my_list.insert(location, element)
+
+# iterating a list, more on loops in a moment
+for element in my_list:
+  print(element)</code></pre>
+      </section>
+
+      <section>
+        <h2>Tuples</h2>
+        <p>So tuples almost work the same:</p>
+        <pre><code class="python"># This tuple would work similarly, except
+# adding, removing, sorting, or
+# any type of modification would throw an error
+pythons = ("John Cleese", "Terry Gilliam", "Eric Idle",
+  "Terry Jones", "Michael Palin", "Graham Chapman")
+
+for actor in pythons:
+  print("{0} is a brilliant actor!".format(actor))
+# prints:
+# John Cleese is a brilliant actor!
+# Terry Gilliam is a brilliant actor!
+# ... and so on</code></pre>
+        <p>Tuple packing/unpacking:</p>
+        <pre><code class="python">dijkstra = 'Edsger Wybe Dijkstra', 1930
+# variable dijkstra will be tuple: ('Edsger Wybe Dijkstra', 1930)
+name, year_of_birth = dijkstra
+print(name) # prints: Edsger Wybe Dijkstra
+print(year_of_birth) # prints: 1930</code></pre>
+      </section>
+
+      <section>
+        <h2>Dicts</h2>
+        <p>Dictionary, or dict for short, is a mutable set of key-value pairs.</p>
+        <pre style="width: 100%;"><code class="python3">agent = {} # new empty dictionary
+agent['name'] = 'James'
+agent['code'] = '007'
+print(agent) # prints: {'code': '007', 'name': 'James'}
+print(agent['name']) # prints James
+print(agent['codename']) # Will result in KeyError, there is no key 'codename'
+print(agent.get('codename')) # prints None
+print(agent.get('codename', 'classified')) # prints classified
+
+# key-values can also be set when creating a dict
+agent = {'name': 'James', 'code': '007'}
+</code></pre>
+      </section>
+
+
+
+      <section>
+        <h2>Useful operators: in, and, or, not</h2>
+        <p>Some of these operators you've already seen:</p>
+        <p><code>in</code> checks if something is a member of something else (value in a list, characters in a string)</p>
+        <p><code>and</code> checks if both values are <code>True</code></p>
+        <p><code>or</code> checks if either of the values is <code>True</code></p>
+        <p><code>not</code> negates as usual (<code>!</code> in most languages)</p>
+      </section>
+
+
+      <section>
+        <h2><code>if</code> Control statements</h2>
+        <p>Python has <code>if</code>...<code>elif</code>...<code>else</code> syntax. <code>elif</code> and <code>else</code> parts can be omitted.</p>
+        <pre><code class="python">some_number = 5
+if some_number &gt; 3:
+  print("Some number is bigger than 3")
+elif some_number &lt; 3:
+  print("Some number is smaller than 3")
+elif some_number == 3:
+  print("Some number is 3!")
+else:
+  print("You can't end up in here")
+
+# This can be used to test if a value exists in a list
+pythons = ("John Cleese", "Terry Gilliam", "Eric Idle",
+  "Terry Jones", "Michael Palin", "Graham Chapman")
+comedian = "John Cleese"
+if comedian in pythons:
+  print(comedian + "is a brilliant comedian!")
+else:
+  print(comedian + " is not a member of the Pythons")</code></pre>
+      </section>
+
+      <section>
+        <h2> <code>in</code> and Dicts </h2>
+          <p><code>in</code> operand can also be used to test if a key exists in a dictionary:</p>
+        <pre><code class="python">agent = {'name': 'James', 'code': '007'}
+
+if 'codename' in agent: # Will be False, no codename in agent dict
+  print(agent['codename']) # Won't get executed
+elif 'name' in agent:
+  print(agent['name']) # Prints 'James'</code></pre>
+      </section>
+
+      <section>
+        <h2><code>for</code> Loops</h2>
+        <pre><code># Prints numbers 0,1,2,3,4 on separate lines
+for i in range(5):
+  print(i)</code></pre>
+        <p>We already saw that <code>for ... in</code> structure can also be used to iterate a list:</p>
+        <pre><code># This will print all animals on separate lines
+animals = ["dog", "cat", "mouse"]
+for animal in animals:
+  print(animal)</code></pre>
+        <pre><code>agent = {'name': 'James', 'code': '007'}
+for key in agent:
+  print(key, agent[key])
+# What will get printed:
+# code 007
+# name James</code></pre>
+      </section>
+
+      <section>
+        <h2><code>while</code> Loops</h2>
+        <p>While loops work as expected: while a condition is <code>True</code> the loop will be executed.</p>
+        <pre><code>user_input = ''
+while user_input != "exit":
+  print("Type something:")
+  user_input = input()
+  if user_input == "exit":
+    print("You typed exit... not asking for more input")
+  else:
+    print("You typed: '{0}'. Type 'exit' to quit.".format(user_input))
+</code></pre>
+      </section>
+
+      <section>
+        <h2>Scopes</h2>
+        <p>Unlike JavaScript, Python is <code>block</code>-scoped. Meaning that variables can be accessed if they are created in this or previous blocks. <code>global</code> keyword can be used to create global variables.</p>
+        <p>Good Stack Overflow question &amp; answer regarding <a href="http://stackoverflow.com/questions/291978/short-description-of-python-scoping-rules">scoping rules</a></p>
+        <p class="extra"><a href="https://docs.python.org/3.3/reference/executionmodel.html">More details in Python3 documentation</a>
+      </section>
+
+      <section>
+        <h2><code>break</code>, <code>continue</code>, and <code>else</code> in Loops</h2>
+        <p><code>break</code> is used to break out of a loop and <code>continue</code> is used to start the next iteration immediately.</p>
+        <pre><code>for n in range(2, 10):
+  for x in range(2, n):
+    if n % x == 0:
+      print(n, 'equals', x, '*', n//x)
+      break
+  else:
+   # loop fell through without finding a factor
+   print(n, 'is a prime number')</code></pre>
+        <p>Example from <a href="https://docs.python.org/3/tutorial/controlflow.html#break-and-continue-statements-and-else-clauses-on-loops">Python 3 Documentation</a></p>
+      </section>
+      <section>
+        <h2>Functions and <code>def</code></h2>
+        <p>Functions (and methods) are defined with <code>def</code>. </p>
+        <p>Returning values is done similarly to JavaScript with <code>return</code> statement.</p>
+        <pre><code class="python">def add(a,b):
+  return a+b
+
+# could also be written as
+def addLong(a,b):
+  result = a + b
+  return result
+
+result = add(7,8)
+print(result) # will print: 15</code></pre>
+      </section>
+      <section>
+        <h2>Functions</h2>
+        <p>Let's try to wrap up the prime number example into a function:</p>
+
+        <pre><code class="python3">def prime_finder(upper_limit):
+  for n in range(2, upper_limit):
+    for x in range(2, n):
+      if n % x == 0:
+        print (n, 'equals', x, '*', n//x)
+        break
+    else:
+      # loop fell through without finding a factor
+      print(n, 'is a prime number')
+
+prime_finder(5)
+# What will get printed
+# 2 is a prime number
+# 3 is a prime number
+# 4 equals 2 * 2</code></pre>
+      </section>
+
+      <section>
+        <h2>Classes</h2>
+        <p>Unlike JavaScript, Python has classes which are defined as such: <code>class Name</code>. Convention is to use a capital letter at the start of the class name.</p>
+        <p>When <em>defining</em> methods for a class, the reference to the instance needs to be passed as the first argument. Here the convention is to use <code>self</code> as the name.</p>
+        <pre><code class="python" contenteditable="true">class Person():
+  def __init__(self, first_name, last_name):
+    self.first_name = first_name
+    self.last_name = last_name
+  def greet(self):
+    return "Hi, my name is " + self.first_name
+
+edgar = Person("Edgar", "Poe")
+greeting = edgar.greet()
+print(greeting) # prints: Hi, my name is Edgar</code></pre>
+        <p><a href="https://docs.python.org/3/tutorial/classes.html">Python Docs on Classes</a></p>
+      </section>
+
+      <section>
+        <h2>Classes Another Example</h2>
+        <p>You can <em>inherit</em> from another class giving the class name in parenthesis where you want to inherit.</p>
+        <p>An example from <a href="https://docs.djangoproject.com/en/1.7/intro/tutorial01/">Django tutorial</a></p>
+        <pre>
+          <code class="python" contenteditable="true"># We will talk about imports in a moment
+from django.db import models
+
+class Question(models.Model):
+  question_text = models.CharField(max_length=200)
+  pub_date = models.DateTimeField('date published')
+          </code>
+        </pre>
+      </section>
+
+
+      <section>
+        <h2>Special Methods?</h2>
+        <p>Like we saw on the class examples, there are some special methods (sometimes also called magical methods) that start and end with two underscores, e.g. <code>__init__</code></p>
+        <p>These special methods get called in certain circumstances, for example, <code>__init__</code> is a <em>constructor</em>.
+        <p>There is also, for example,  <code>__str__</code> method, which gets called whenever we want the string representation of the object, such as when printing.</p>
+        <p>There are many more, most are not needed on this course. <a href="http://www.diveintopython3.net/special-method-names.html">Dive Into Python 3 Appendix B: Special Method Names</a>.</p>
+      </section>
+      <section>
+        <h2>Imports</h2>
+        <p>You can import other modules (from Python's modules, some project, your own, etc.) with the <code>import</code> keyword. If you only want a specific function, you can also say <code>from module import function</code>.</p>
+        <pre><code class="python3">
+import glob
+print(glob.glob('*')) # Prints out all the files in current directory
+
+from random import choice
+print( choice([0,1,2,3]) ) # Prints either 0, 1, 2, or 3
+        </code></pre>
+      </section>
+
+      <section>
+        <h2>Some Modules</h2>
+        <p>Many useful builtin modules in Python, some examples:</p>
+        <ul>
+          <li><code>random</code> random numbers, choices</li>
+          <li><code>glob</code> unix style file/directory listings</li>
+          <li><code>json</code> working with json data</li>
+          <li><code>http</code> contains many things for working with HTTP</li>
+        </ul>
+        <p>Example use of the <code>http</code> module:</p>
+        <pre><code class="sh">examples hazen$ python3 -m http.server
+Serving HTTP on 0.0.0.0 port 8000 ...
+        </code></pre>
+        <p><img src="img/http_server_python.png" alt="Python's builtin HTTP server"></p>
+      </section>
+
+      <section>
+
+        <h2>Working with Files</h2>
+        <p>Files are opened with builtin function <code>open</code> which will return a file object. Calling <code>.close()</code> on that object will close the file. However, recommended way to open files is with <code>with</code> (files get closed automatically after the block).</p>
+        <pre><code class="python">events_file = open('events.html', 'r')
+print(events_file.readlines()[0:5])
+events_file.close()
+
+with open('events.html', 'r') as f:
+  print(f.readlines()[0:5])</code></pre>
+        <p>Contents of the file can by read by <code>.read(size)</code>, <code>.readline()</code>, and <code>.readlines()</code>. Refer to the <a href="https://docs.python.org/3/tutorial/inputoutput.html#reading-and-writing-files">Python Docs on files</a> for those and more.</p>
+      </section>
+
+      <section>
+        <h2>Handling Errors</h2>
+        <p>Python has <code>try...except...[else]</code> structure for handling errors.</p>
+        <pre><code>for arg in sys.argv[1:]:
+  try:
+    f = open(arg, 'r')
+  except IOError:
+    print('cannot open', arg)
+  else:
+    print(arg, 'has', len(f.readlines()), 'lines')
+    f.close()</code></pre>
+        <p>See <a href="https://docs.python.org/3/tutorial/errors.html#handling-exceptions">Python docs on Handling Exceptions</a> and <a href="https://docs.python.org/3/library/exceptions.html#bltin-exceptions">list of built-in exceptions</a>.</p>
+      </section>
+    </section> <!-- python tutorial -->
+
+    <section data-background="#002b36">
+      <section>
+        <h2>CGI Example <small>(Blast from the past)</small></h2>
+        <pre style="width: 100%;"><code class="python">#!/usr/bin/env python
+import MySQLdb
+
+print("Content-Type: text/html\n")
+print("&lt;html&gt;&lt;head&gt;&lt;title&gt;Books&lt;/title&gt;&lt;/head&gt;")
+print("&lt;body&gt;")
+print("&lt;h1&gt;Books&lt;/h1&gt;")
+print("&lt;ul&gt;")
+
+connection = MySQLdb.connect(user='me', passwd='letmein', db='my_db')
+cursor = connection.cursor()
+cursor.execute("SELECT name FROM books ORDER BY pub_date DESC LIMIT 10")
+
+for row in cursor.fetchall():
+    print("&lt;li&gt;{}&lt;/li&gt;".format(row[0]))
+
+print("&lt;/ul&gt;")
+print("&lt;/body&gt;&lt;/html&gt;")
+
+connection.close()</code></pre>
+        <p class="extra">Example (slightly modified) from <a href="http://www.djangobook.com/en/2.0/index.html">Django Book</a> (which sadly is outdated at the moment).</p>
+      </section>
+
+      <section>
+        <h2>What are Web Application Frameworks?</h2>
+        <div class="fragment">
+        <blockquote>"In computer programming, a software framework is an abstraction in which software providing generic functionality can be selectively changed by additional user-written code, thus providing application-specific software." <a href="http://en.wikipedia.org/wiki/Software_framework">Wikipedia</a></blockquote>
+        <p>&nbsp;</p>
+        <blockquote>"A web application framework (WAF) is a software framework that is designed to support the development of dynamic websites, web applications, web services and web resources. The framework aims to alleviate the overhead associated with common activities performed in web development." <a href="http://en.wikipedia.org/wiki/Web_application_framework">Wikipedia</a></blockquote></div>
+      </section>
+
+      <section>
+        <h2>Library vs. Framework</h2>
+        <p>What's the difference between frameworks and libraries?</p>
+        <p>e.g., frameworks provide/force structure for the whole application and in return provide functionality and ease of use of some 'mundane' tasks.</p>
+        <p>Frameworks' design philosophy impacts more. Design of libraries will only affect how you call out the functionality.</p>
+        <p class="extra">Good discussion on the topic from <a href="http://stackoverflow.com/questions/148747/what-is-the-difference-between-a-framework-and-a-library">Stack Overflow</a></p>
+      </section>
+
+      <section>
+        <h2>Separation of Concerns</h2>
+        <blockquote>"... '<em>the separation of concerns</em>', which, even if not perfectly possible, is yet the only available technique for effective ordering of one's thoughts, that I know of. This is what I mean by 'focusing one's attention upon some aspect': it does not mean ignoring the other aspects," <a href="https://www.cs.utexas.edu/users/EWD/transcriptions/EWD04xx/EWD447.html">E.W. Djikstra</a>
+        </blockquote>
+        <p><a href="http://en.wikipedia.org/wiki/Separation_of_concerns">Wikipedia</a> has a worthwhile article about it as well.</p>
+      </section>
+
+      <section>
+        <h2>Model-View-Controller</h2>
+        <p>Model-View-Controller (or MVC) is a <em>pattern</em> used in software architecture used for interactive software/application.</p>
+        <p>The application is created from three components which have different responsibilities.</p>
+        <p><img src="img/mvc.png" alt="Model-View-Controller"></p>
+      </section>
+
+      <section>
+        <h2>Model (<strong>M</strong>VC)</h2>
+        <p>Model maintains the state of the application, it holds the data. In the web application context typically the data is stored in a database(s). </p>
+        <p>Model is used to abstract away the database-centric stuff. This is typically done using <em>Object-Relational-Mapper</em> (<code>ORM</code>). It maps the data in the database to objects and conversely maps objects to database entries.</p>
+        <p>Any restrictions to the data are defined in the model... and it takes care of validating, so that incorrect data does not end up in the database.</p>
+      </section>
+
+      <section>
+        <h2>View (M<strong>V</strong>C)</h2>
+        <p>The concern of the view is to generate the user interface. In web applications this means producing <code>HTML</code> usually by using a <em>templating language</em>.</p>
+        <p>Data is acquired from the Model (typically via Controller) and mixed with HTML using templating language.</p>
+        <p>View can (and often does) <em>format</em> the data to suit the requirements of that particular view. It answers questions like: what is to be displayed? how should it be displayed? etc.</p>
+      </section>
+
+      <section>
+        <h2>Controller (MV<strong>C</strong>)</h2>
+        <p>Controller decides which views to use based on <em>user input</em> and data from the models.</p>
+        <p>Controller can be interpreted in many ways and in the simplest case it only selects the views.</p>
+        <p>In a broader interpretation it handles more of the business logic (utilizing models and what rules they enforce).</p>
+      </section>
+
+    </section>
+    <section>
+
+      <section>
+        <h2>Django Framework</h2>
+        <blockquote style="width: 90%;">"The Web framework for perfectionists with deadlines" <a href="https://www.djangoproject.com/">Django</a></blockquote>
+        <p style="text-align: center;"><a href="https://www.djangoproject.com/"><img style="width: 80%;" src="img/django_website.png" alt="Screenshot of Django Website"></a></p>
+      </section>
+
+      <section>
+        <h2>Django on The Course</h2>
+        <p>The latest version of Django is 1.10</p>
+        <p>For automatically assessed exercises, we will use version 1.10 with Python 3</p>
+        <p>Why Django? It offers nice amount of functionality and "forces" writing applications in a particular way. It is powerful and flexible and it is quite a "traditional" web framework as well.</p>
+        <p class="extra">The world is full of frameworks. <a href="http://en.wikipedia.org/wiki/Comparison_of_web_application_frameworks">Wikipedia has listed some for many languages</a>.</p>
+      </section>
+
+      <section>
+        <h2>Model-Template-View</h2>
+        <p>Model-Template-View (<code>MTV</code>) is a variation of the <code>MVC</code> pattern.</p>
+        <p>Django uses this:</p>
+        <blockquote>'In our interpretation of MVC, the “view” describes the data that gets presented to the user. It’s not necessarily how the data looks, but which data is presented. The view describes which data you see, not how you see it. It’s a subtle distinction.' <a href="https://docs.djangoproject.com/en/dev/faq/general/#django-appears-to-be-a-mvc-framework-but-you-call-the-controller-the-view-and-the-view-the-template-how-come-you-don-t-use-the-standard-names">Django FAQ about MVC</a></blockquote>
+      </section>
+
+
+
+      <section>
+        <h2>MTV and Django</h2>
+        <p>In Django's MTV, the role of the model is the same as in the typical <code>MVC</code>.</p>
+        <p><em>Templates</em> are just called that in Django, they produce the final HTML presented to the user by combining given HTML elements and data.</p>
+        <p>Views get the user input (HTTP request), they access the necessary models (and perhaps include some additional logic), and then pass the data to the template.</p>
+        <p>The template is rendered and returned to the user.</p>
+        <p>The role of the 'traditional' controller can be viewed in django as the whole framework + URL-routing (<code>urls.py</code>)</p>
+      </section>
+
+      <section>
+        <h2>MTV and Django</h2>
+        <p><img style="width: 80%;" src="img/django_mtv.png" alt="Django and Model-Template-View"></p>
+      </section>
+
+      <section>
+        <h2>django-admin.py</h2>
+        <p><code>django-admin.py startproject my_first_project</code> this will create a new folder with specific file structure called my_first_project and importantly creates a manage.py script, which is used to do various tasks related to the project:</p>
+        <ul>
+          <li><code>python manage.py migrate </code> creates the database schema</li>
+          <li><code>python manage.py runserver [port]</code> starts a development server</li>
+          <li><code>python manage.py startapp appname</code> creates an app for the project</li>
+          <li><code>python manage.py help</code> lists out all the nice things manage.py can do for you</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Structure of a Django Project</h2>
+        <p style="float:left;"><img src="img/django_myblog.png" alt="Simple Django project directory structure"></p>
+        <p>The project 'myblog' contains an app called 'blogpost' which has various Python files which we'll look at next. There is also a nested 'myblog' directory that contains some important files.</p>
+      </section>
+
+      <section>
+        <h2>urls.py</h2>
+        <p>This routes <code>URL</code>s to Django functions (typically defined in <code>views.py</code>).</p>
+        <pre><code>from django.conf.urls import patterns, include, url
+from my_app.views import welcome_page
+from django.contrib import admin
+
+urlpatterns = patterns('',
+    url(r'^$', welcome_page, name='welcome'), # ^$ matches empty path
+    url(r'^admin/', include(admin.site.urls)),
+)
+</code></pre>
+        <p class="extra">'Some people, when confronted with a problem, think, "I know, I'll use regular expressions." Now they have two problems.' <a href="http://nedbatchelder.com/blog/201204/two_problems.html">More humor</a></p>
+      </section>
+
+      <section>
+        <h2>views.py</h2>
+        <p><code>views.py</code> (naming convention) files contain views that get requested through the <code>urls.py</code>. For example:</p>
+        <pre style="width: 95%;"><code>from django.http import HttpResponse
+
+def welcome_page(request):
+    return HttpResponse("Hello, world. Welcome to this page")</code></pre>
+        <p>Using a template and <code>render</code> shortcut:</p>
+        <pre style="width: 95%;"><code>from django.shortcuts import render
+
+def latest_posts(request, amount):
+    posts = BlogPost.objects.all().order_by('-pub_date')[:amount]
+    context = {'blog_posts': posts}
+    return render(request, 'blog/index.html', context)</code></pre>
+      </section>
+
+      <section>
+        <h2>Templates</h2>
+        <p>Templates have some predefined HTML and they get some data from the view (which gets it from the model).</p>
+        <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;title>Welcome&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;h1>Welcome to {{ system_name }}!&lt;/h1&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+      </section>
+
+      <section>
+        <h2>settings.py</h2>
+        <p>This is the main configuration file for the project which can be extended by local settings files.</p>
+        <p>Some of the important settings contained in it: installed apps, database settings, where templates are loaded, and much more.</p>
+      </section>
+
+      <section>
+        <h2>Generating HTML without Templates</h2>
+        <p>It is possible but highly unadvisable!</p>
+        <p>Think about the following code:</p>
+        <pre style="width: 95%"><code>def current_datetime(request):
+  now = datetime.datetime.now()
+  html = "&lt;html&gt;&lt;body&gt;It is now {}.&lt;/body&gt;&lt;/html&gt;".format(now)
+  return HttpResponse(html)
+        </code></pre>
+        <p>How does that relate to separation of concerns and maintainability?</p>
+      </section>
+
+      <section>
+        <h2>Templating Languages</h2>
+        <p>The main idea is to separate the presentation from the data.</p>
+        <p>They offer many benefits, such as:
+          <ul>
+            <li>Flexibility - designers can work on templates while coders work on code</li>
+            <li>Maintainability - loose coupling. Presentation can be reworked completely without touching the underlying logic</li>
+            <li>Typically easier than coding - non-coders (think designers, ux specialists) can work on them as well</li>
+          </ul>
+      </section>
+
+      <section>
+        <h2>Django Templates</h2>
+        <p>Templates in Django can generate HTML/XML/JSON and other formats.</p>
+        <p>They use a templating language that mixes its own tags with the parent languages (e.g. HTML) tags.</p>
+        <p>They have a minimal set of control constructs (looping, branching) and any actual logic should be coded in views.</p>
+        <p>They have template <em>inheritance</em> to keep up with the <a href="http://en.wikipedia.org/wiki/Don't_repeat_yourself">DRY-principle</a>.</p>
+        <pre><code class="html">{{ variable }}
+{# comment #}
+{% programming logic %}</code></pre>
+      </section>
+
+      <section>
+        <h2>Templates - Variables</h2>
+        <p>Double curly brackets denote a variable in templates. The values are filled in the view. If the variable is a dict/list/object etc., dot notation can be used to access its members.</p>
+        <p>Variables can also be preprocessed before they are included in the document. Filters are marked with: <code> | filter_name &amp; params</code>, e.g.:</p>
+        <pre><code class="html">{# escapes special characters in urls #}
+{{ userprovided_url | urlencode }}
+{# e.g. http://www.google.com -> http%3A//www.google.com #}</code></pre>
+      </section>
+
+      <section>
+        <h2>Templates - Comments</h2>
+        <p>Two ways:</p>
+        <pre><code class="html">{# self commenting #}
+
+{% comment %}
+  This is commented out.
+{% endcomment %}
+
+        </code></pre>
+      </section>
+
+      <section>
+        <h2>Templates - <code>if</code> and <code>for</code></h2>
+        <p>Can be used to test presence of a variable with <code>{% if variable %}</code>.</p>
+
+        <pre><code class="html">{% if condition %}
+  If condition evaluates to true this will get rendered.
+{% else %}
+  Otherwise this will get rendered.
+{% endif %}
+        </code></pre>
+        <pre><code class="html">{% ifequal a b %}
+  {{a}} and {{b}} are equal
+{% else %}
+  {{a}} and {{b}} are NOT equal
+{% endif %}
+        </code></pre>
+        <pre><code class="html">{% for item in collection %}
+  Collection (e.g. list) contains {{item}}.
+{% endfor %}
+        </code></pre>
+        <p>For a complete list of tags and filters refer to <a href="http://docs.djangoproject.com/en/1.8/ref/templates/builtins/">Django Documentation</a>.</p>
+      </section>
+
+      <section>
+        <h2>Templates - Workflow</h2>
+        <p>Following steps describe how templates are rendered:</p>
+        <ol>
+          <li>Fetch a template</li>
+          <li>Prepare data in Context object</li>
+          <li>Render template with the data</li>
+          <li>Return rendered template as an HttpResponse</li>
+        </ol>
+
+        <pre style="width: 95%;"><code>￼def congratulate_page(request):
+    template = get_template("congratulations.html") # 1.
+    variables =
+        Context( { "name" : "Matti", "username" : "iceman" } ) # 2.
+    output = template.render(variables) # 3.
+    return HttpResponse(output) # 4.</code></pre>
+        <p>There is a <a href="https://docs.djangoproject.com/en/1.8/topics/http/shortcuts/#render">render shortcut</a> for this.</p>
+      </section>
+
+      <section>
+        <h2>Object-Relational-Mapper ORM</h2>
+        <p>Most of the data in a Django application is in objects that have a number of instance variables (that can also reference other objects).</p>
+        <p>Data is stored in tables in relational databases that are not designed to contain objects.</p>
+        <p>Object-Relational-Mapper is designed to bridge this gap. It converts objects to a form that can be stored relational database. And similarly, fetches data from the database and transforms that data back into objects.</p>
+        </section>
+
+        <section>
+          <h2>Models in Django</h2>
+          <p>The first step is to describe models in Python code (typically in <code>app/models.py</code>). The following example defines two models:</p>
+
+        <pre><code>from django.db import models
+
+class Student(models.Model):
+  name = models.CharField(max_length=30)
+  student_number = models.CharField(max_length=6)
+  group = models.ForeignKey(ProjectGroup)
+
+class ProjectGroup(models.Model):
+  name = models.CharField(max_length=30)
+  project_deadline = models.DateField()</code></pre>
+        </section>
+
+        <section>
+          <h2>Django ORM</h2>
+          <p>Once you've defined some models you can run <code>python3 manage.py makemigrations appname</code> and then <code>python3 manage.py sqlmigrate</code> which will give the corresponding <code>SQL</code> query to create the necessary tables.</p>
+          <pre style="width: 102%;"><code>BEGIN;
+
+CREATE TABLE "student_projectgroup" ("id" integer
+  NOT NULL PRIMARY KEY AUTOINCREMENT, "name" varchar(30)
+  NOT NULL, "project_deadline" date NOT NULL);
+CREATE TABLE "student_student" (
+  "id" integer NOT NULL PRIMARY KEY AUTOINCREMENT,
+  "name" varchar(30) NOT NULL, "student_number" varchar(6) NOT NULL,
+  "group_id" integer NOT NULL
+    REFERENCES "student_projectgroup" ("id")
+  );
+CREATE INDEX
+  student_student_0e939a4f ON "student_student" ("group_id");
+
+COMMIT;</code></pre>
+        </section>
+
+      <section>
+        <h2>Model-View-Controller</h2>
+        <p>Model-View-Controller (or MVC) is a <em>pattern</em> used in software architecture used for interactive software/application.</p>
+        <p>The application is created from three components which have different responsibilities.</p>
+        <p><img src="img/mvc.png" alt="Model-View-Controller"></p>
+      </section>
+<!--
+      <section class="general_topic">
+        <h2>DEMO: Getting Started with Django</h2>
+      </section>
+-->
+    </section>
+      </div>
+    </div>
+    <script src="lib/jquery-1.11.1.min.js"></script>
+    <script src="lib/reveal.js-3.1.0/lib/js/head.min.js"></script>
+    <script src="lib/reveal.js-3.1.0/js/reveal.js"></script>
+
+    <script>
+
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        fragments: true,
+
+        theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+        transition: Reveal.getQueryHash().transition || 'linear', // default/cube/page/concave/zoom/linear/fade/none
+
+        // Parallax scrolling
+        // parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+        // parallaxBackgroundSize: '2100px 900px',
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+          { src: 'lib/reveal.js-3.1.0/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'lib/reveal.js-3.1.0/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: 'lib/reveal.js-3.1.0/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: 'lib//highlight/highlight.pack.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+          { src: 'lib/reveal.js-3.1.0/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: 'lib/reveal.js-3.1.0/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+        ]
+      });
+    </script>
+
+  </body>
+</html>
