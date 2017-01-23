@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>WSD 2017 - Exercise 2</title>
+</head>
+<body>
+<div id="exercise">
+  <!--<form action="http://requestb.in/11sr3t41" method="post">-->
+  <form action="127.0.0.1/wsd-grader/html_form_check" method="post">
+    <div>
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email">
+    </div>
+    <div>
+      <label for="passwd">Password:</label>
+      <input type="password" id="passwd" name="passwd">
+    </div>
+    <div>
+      <label for="passwd2">Repeat password:</label>
+      <input type="password" id="passwd2" name="passwd2">
+    </div>
+    <div>
+      <label for="lang">Language:</label>
+      <select id="lang" name="lang">
+        <option value="sv">Swedish</option>
+        <option value="fi">Finnish</option>
+        <option value="no">Norwegian</option>
+        <option value="da">Danish</option>
+        <option value="is">Icelandic</option>
+      </select>
+    </div>
+    <div>
+      <input type="checkbox" id="terms" name="terms">
+      <label for="terms">I accept terms and conditions</label>
+    </div>
+    <div class="button">
+      <button type="submit">Register</button>
+    </div>
+  </form>
+</div>
+</body>
+</html>
