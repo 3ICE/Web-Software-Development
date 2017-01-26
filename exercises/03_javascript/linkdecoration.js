@@ -9,7 +9,13 @@ $("#javascript_end").html("[WAITING]...this far we haven't reached the end... Ma
 // ADD YOUR CODE BETWEEN THESE LINES //
 
 
+$(function() {
+    $('a[href$=".pdf"]').prop('class', 'pdf');
+});
 
+$(function() {//NOT with .pdf or .html
+    $('a:not(a[href$=".pdf"]):not(a[href$=".html"])').prop('class', 'download');
+});
 
 
 
