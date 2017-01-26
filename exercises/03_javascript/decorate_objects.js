@@ -16,7 +16,7 @@ function addPersonMethods(p){
 		},
 		namesake: function namesake(o){
 			if(p.name==o.name){
-				console.log("We have the same name, "+o.name+" and I.")
+				console.log("We have the same name, "+o.name+" and I!")
 			}else{
 				console.log("We have different names, "+o.name+" and I.")
 			}
