@@ -14,7 +14,7 @@ $(function() {
 });
 
 $(function() {//NOT with .pdf or .html
-    $('a:not(a[href$=".pdf"]):not(a[href$=".html"])').prop('class', 'download');
+    $('a[href*="."]:not(a[href$=".pdf"]):not(a[href$=".html"]):not(a[href$="/"]):not(a[href$="link"])').prop('class', 'download');
 });
 
 
