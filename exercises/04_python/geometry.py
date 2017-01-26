@@ -30,4 +30,4 @@ class Circle:
         return self._p
 
     def is_inside(self, o):
-        return _p.distance_from(o) < self._r
+        return self._p.distance_from(o) < self._r
