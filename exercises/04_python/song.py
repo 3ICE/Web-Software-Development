@@ -58,7 +58,7 @@ class Song:
 		#return a list of track ids in the song that are equal or higher than the limit given. The limit is optional and should default to 0 (i.e. get all similar songs).
 		ret=[]
 		for i in range(len(self._data["similars"])):
-			if int(self._data["similars"][i][1])>=limit:
+			if float(self._data["similars"][i][1])>=limit:
 				ret.append(self._data["similars"][i][0])
 		return ret
 
