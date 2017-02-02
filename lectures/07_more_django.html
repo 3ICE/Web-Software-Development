@@ -421,7 +421,7 @@ urlpatterns = patterns('',
 
     </section>
     <section class="sessions">
-<section>
+<section class="sessions">
   <h2>Sessions and authentication</h2>
       </section>
 
@@ -604,6 +604,113 @@ def post_comment(request, new_comment):
         <h2>Session framework != Authentication framework</h2>
         <p>We will return authentication later.</p>
       </section>
+
+    </section>
+
+    <section class="django">
+    <section>
+      <h2>User Management</h2>
+      <p>Django provides built-in views for handling common scenarios with handling users, such as registration, login, password change etc.</p>
+      <p>Additionally, Django has a <code>User</code> model that can be used and extended to suit your needs.</p>
+      <p class="dense">Instead of writing your own logic for registration/login etc., use these built-in views. Major reason for using Django's own is security: unless you are really experienced with security and user management, you are more likely to get it wrong with your own solution.</p>
+      <p>An additional benefit is that using built-in functionality is a lot faster and easier. Again, see Django docs on <a href="https://docs.djangoproject.com/en/1.8/topics/auth/">User authentication</a>.</p>
+    </section>
+
+    <section>
+      <h2>Extending User class</h2>
+      <p>You can extend the User class by creating a new model, that has a one-to-one relationship with User:</p>
+      <pre><code>from django.contrib.auth.models import User
+
+class Employee(models.Model):
+  user = models.OneToOneField(User)
+  department = models.CharField(max_length=100)</code></pre>
+      <p>You can then get access to related information on a user:</p>
+      <pre><code>user = User.objects.get(username='fsmith')
+freds_department = user.employee.department</code></pre>
+      <p>Example from <a href="https://docs.djangoproject.com/en/1.8/topics/auth/customizing/#extending-the-existing-user-model">Django docs</a>.</p>
+    </section>
+
+    <section>
+      <h2>User Login</h2>
+      <p>To provide a way for users to login, you need to set up an url for a login view in <code>urls.py</code>:</p>
+      <pre><code>...
+url(r'^login/$', 'django.contrib.auth.views.login'),
+...</code></pre>
+      <p>By default, this view looks for a template in 'register/login.html'. You can configure this by passing the url configuration a dictionary, as such:<pre><code>url(r'^login/$',
+'django.contrib.auth.views.login',
+{'template_name': 'login_template.html'}),</code></pre>
+    </section>
+
+    <section>
+      <h2>User Login Template</h2>
+      <p>You do need to create a template for the login. It will get a variable called <code>form</code>:</p>
+      <pre><code>{% block login %}
+&lt;form method="POST" action="/login/"&gt;
+  {% csrf_token %}
+  {{form.as_p}}
+  &lt;input type="submit" value="Login"&gt;
+&lt;/form&gt;
+{% endblock%}</code></pre>
+    </section>
+
+    <section>
+      <h2>User Registration</h2>
+      <p>For registration of new users, you need to create a view that handles it. An easy way to do this is to use a <code>ModelForm</code> that ties to Django's default <code>User</code> in <code>forms.py</code>:</p>
+      <pre><code>from django import forms
+from django.contrib.auth.models import User
+class UserForm(forms.ModelForm):
+# use password widget so password isn't shown
+password = forms.CharField(widget=forms.PasswordInput())
+
+class Meta:
+  model = User # We want to use User model ...
+  # ... and the form should have the following fields
+  fields = ('username', 'email', 'password')</code></pre>
+      <p>This needs a view, so we'll add to <code>urls.py</code> the following line:</p>
+      <pre><code>url(r'^register/$', 'myblog.views.register'),</code></pre>
+      <p>... and write the view (next slide).</p>
+
+    </section>
+
+    <section>
+      <h2>Registration View Example</h2>
+      <p class="dense">If this view is accessed with POST, it tries to create a new user and if successful it will redirect. If it's called with GET an unbound form will be returned. If creating a new user is not successful it will return bound form with errors explaining what went wrong.</p>
+      <pre><code>from django.shortcuts import render
+from myblog.forms import UserForm
+
+def register(request):
+if request.method == 'POST':
+  user_form = UserForm(data=request.POST)
+  if user_form.is_valid():
+    user = user_form.save()
+    user.set_password(user.password)
+    user.save()
+    return redirect('home_page')
+else:
+  user_form = UserForm()
+
+return render(request,
+        'registration/register.html',
+        {'form': user_form })</code></pre>
+    </section>
+
+    <section>
+      <h2>Logging out</h2>
+      <p>A ready made view for logging out exists as well: to provide a logout link, just add to <code>urls.py</code>:</p>
+      <pre><code>url(r'^logout/$', 'django.contrib.auth.views.logout'),</code></pre>
+      <p>And provide a link to <code>'/logout/'</code>.</p>
+    </section>
+
+    <section>
+      <h2><code>@login_required</code> decorator</h2>
+      <p class="dense">To write views that are only accessible to users that have logged in, you can use a convenient <code>@login_required</code> decorator on your view:</p>
+      <pre><code>@login_required(login_url='/login/')
+def write_blogpost(request):
+  ...</code></pre>
+      <p class="dense">You can now assume in <code>write_blogpost</code> that a user has been successfully authenticated.</p>
+      <p class="dense">The <code>login_url</code> parameter is optional, and it tells the URL that the user should be redirected if they are not logged in. The url for the view will be passed as a parameter on the redirect, e.g. <code>'/login/?next=/write_blogpost/'</code>.</p>
+      <p>See Django docs for <a href="https://docs.djangoproject.com/en/1.8/topics/auth/default/#django.contrib.auth.decorators.login_required">login_required decorator</a>.</p>
+    </section>
 
     </section>
 
