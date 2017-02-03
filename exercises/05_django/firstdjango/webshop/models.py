@@ -12,3 +12,7 @@ class Product(models.Model):
         self.quantity-=1
         self.save()
         return self.quantity
+# from webshop.models import Product
+# p = Product(title="Teddy Bear", description="Huge fluffy teddy-bear", quantity=10)
+# print(p.title)
+# p.sell()
