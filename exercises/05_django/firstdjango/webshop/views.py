@@ -10,10 +10,11 @@ def about(request):
     return HttpResponse("about page")
 
 def productview(request, product_id):
-    p = Product.objects.filter(id__exact=product_id)
-    if p:
+    #p = Product.objects.filter(id__exact=product_id)
+    try:
+        p = Product.objects.get(id=int(product_id))
         return render_to_response('webshop/product_view.html',{'product': p})
-    else:
+    except Product.DoesNotExist:
         raise Http404("Not found")
 
 def available_products(request):
