@@ -12,12 +12,11 @@ def about(request):
 def productview(request, product_id):
     p = Product.objects.filter(id__exact=product_id)
     if p:
-        return render_to_response('webshop/product_view.html',{'products': p})
+        return render_to_response('webshop/product_view.html',{'product': p})
     else:
-        #return HttpResponseNotFound('<h1>Page not found</h1>')
-        raise Http404("Poll does not exist")
-    #return HttpResponse("product {}".format(product_id))
+        raise Http404("Not found")
 
 def available_products(request):
     return render_to_response('webshop/product_list.html',{'products': Product.objects.filter(quantity__gt=0)})
     #return HttpResponse("View not implemented!")
+		
