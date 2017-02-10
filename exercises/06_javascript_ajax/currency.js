@@ -4,7 +4,7 @@ $(document).ready(function() {
 	function(e){
 		e.preventDefault();
 		var t=$("#currencies")[0]
-		jQuery.getJSON("http://api.fixer.io/"+$("#date").val()+"?jsoncallback=?", function(data) {
+		jQuery.getJSON("http://api.fixer.io/"+$("#date").val()/*+"?jsoncallback=?"*/, function(data) {
 			t.innerHTML="";
 			for(key in data.rates){ //var i=0; i<data.rates.length;i++
 				var tr = document.createElement("tr");
