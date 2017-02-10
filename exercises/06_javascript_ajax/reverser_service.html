@@ -1,0 +1,25 @@
+<html>
+	<head>
+		<title>Reverser service</title>
+		<meta charset="utf-8">
+		<script src="lib/jquery-1.11.3.min.js"></script>
+		<script>
+		//Don't forget to wait for document to fully load! (Took me half an hour to figure out)
+		$(document).ready(function() {
+			//reverse and post result to parent:
+			$("#reverser").on('submit',
+			function(e){e.preventDefault()
+			parent.postMessage({
+				'payload': $("#toBeReversed").val().split("").reverse().join("")
+				}, "*");})
+		});
+		</script>
+	</head>
+	<body>
+	<form id="reverser">
+		<input id="toBeReversed" name="input" type="text">
+		<input type="submit" id="submitReverser">
+		<button id="clearInput">Clear</button>
+	</form>
+	</body>
+</html>
