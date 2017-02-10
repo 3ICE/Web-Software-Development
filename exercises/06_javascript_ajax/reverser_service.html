@@ -8,7 +8,7 @@
 		//Don't forget to wait for document to fully load! (Took me half an hour to figure out)
 		$(document).ready(function() {
 			//reverse and post result to parent:
-			$("#reverser").on('submit',
+			$("#submitReverser").on('click',
 			function(e){e.preventDefault()
 			parent.postMessage({
 				'payload': $("#toBeReversed").val().split("").reverse().join("")
