@@ -15,6 +15,8 @@ $(document).ready(function() {
 				tr.appendChild(td1);
 				tr.appendChild(td2);
 				t.appendChild(tr);
+				//3ICE: Much better solution, but not 
+				//t.append("<tr><td>"+currency+"</td><td>"+rate+"</td></tr>")
 			}
 		});
 	})
