@@ -5,14 +5,15 @@
 		<meta charset="utf-8">
 		<script src="lib/jquery-1.11.3.min.js"></script>
 		<script>
-		//Don't forget to wait for document to fully load! (Took me half an hour to figure out)
+		//3ICE: Don't forget to wait for document to fully load! (Took me half an hour to figure out)
 		$(document).ready(function() {
-			//reverse and post result to parent:
+			//3ICE: reverse and post result to parent:
 			$("#submitReverser").on('click',
 			function(e){e.preventDefault()
 			parent.postMessage({
 				'payload': $("#toBeReversed").val().split("").reverse().join("")
 				}, "*");})
+			//3ICE: This "clear" doesn't really do anything but the specification says to do this so I'm doing this.
 			$("#clearInput").on('click',
 			function(e){e.preventDefault()
 			parent.postMessage({'payload': 'INPUT CLEARED'}, "*");})
