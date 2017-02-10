@@ -13,6 +13,9 @@
 			parent.postMessage({
 				'payload': $("#toBeReversed").val().split("").reverse().join("")
 				}, "*");})
+			$("#clearInput").on('click',
+			function(e){e.preventDefault()
+			parent.postMessage({'payload': 'INPUT CLEARED'}, "*");})
 		});
 		</script>
 	</head>
