@@ -1,6 +1,6 @@
 //3ICE: Don't forget to wait for document to fully load! (Took me half an hour to figure out)
 $(document).ready(function() {
-	$("#f").on('submit',
+	$("#search").on('click',
 	function(e){
 		e.preventDefault();
 		var t=$("#currencies")[0]
