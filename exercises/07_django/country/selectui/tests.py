@@ -57,8 +57,8 @@ class TemplateTestCase(TestCase):
             # Test with an Ajax request
             response = self.client.get(url, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
             self.assertEquals(response.status_code, 200, "Testing request status code.")
-            #self.assertNotContains(response, "<html>")
-            #self.assertNotContains(response, "<body>")
+            self.assertNotContains(response, "<html>")
+            self.assertNotContains(response, "<body>")
             self.assertEquals(response.status_code, 200, "Testing request status code.")
             self.assertTemplateUsed(response, "selectui/countrytable.html", "Testing that the right template was rendered")
             self.assertTemplateNotUsed(response, "selectui/index.html", "Testing that index.html was not rendered on Ajax request")
