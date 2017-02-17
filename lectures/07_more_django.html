@@ -22,12 +22,18 @@
     <link rel="stylesheet" href="lib/highlight/styles/monokai_sublime.css">
 
     <link rel="stylesheet" href="extra/custom.css">
+
     <style>
-      body {
+      .django {
         background: #142915;
         background-color: #142915;
       }
+      .sessions {
+        background: #002b36;
+        background-color: #002b36;
+      }
     </style>
+
 
     <!-- If the query includes 'print-pdf', include the PDF print sheet -->
     <script>
@@ -53,10 +59,13 @@
 
       <section class="general_topic">
         <h1>Seitti 2017</h1>
-        <h2>More Django</h2>
+        <h2>More about Django and Sessions</h2>
       </section>
 
-      <section><h1>Models</h1></section>
+      <section class="django">
+
+
+      <section><h1>More about Django Basics</h1></section>
 
       <section>
         <h2>Models</h2>
@@ -409,6 +418,302 @@ urlpatterns = patterns('',
         <p>Example from: <a href="https://docs.djangoproject.com/en/1.10/topics/http/urls/">Django docs Urls</a>.</p>
         <p class="extra">Tim Berners-Lee on <a href="http://www.w3.org/Provider/Style/URI">Cool URIs Don't Change</a>.</p>
       </section>
+
+    </section>
+    <section class="sessions">
+<section class="sessions">
+  <h2>Sessions and authentication</h2>
+      </section>
+
+<section>
+  <h2>Stalessness</h2>
+           <p>HTTP is a stateless protocol</p>
+              <ul><li>Request are not related/tied to others</li></ul>
+           <p>Still, many web applications need state information</p>
+              <ul><li>Users able to log in, for example</li></ul>
+
+</section>
+
+<section>
+  <h2>How/where to store states</h2>
+           <p>Distributes application may maintain state in each
+              distributed component</p>
+           <p>Should we store the state in client or server side?</p>
+           <p><img src="img/statefull_generic.png" alt="state in http"></p>
+</section>
+
+      <section>
+        <h2>State on the client side?</h2>
+          <ul class="fragment">
+            <li>Cookies
+            </li>
+            <li>URL query strings
+              <ul>
+                <li>Similar to cookies but perhaps with more
+                security and consistency issues</li>
+                <li>PHP and Java Servlets</li>
+                </ul>
+            </li>
+            <li>Hidden form fields
+              <ul>
+                <li>ASP.NET</li>
+              </ul>
+            </li>
+
+            <li>window.name
+              <ul>
+                <li>Unsecure JavaScript trick</li>
+              </ul></li>
+            <li>Flash</li>
+
+            <li>HTML5 local storage
+              <ul>
+                <li>Persistent local storage (HTML5 features discussed more after Xmas)</li>
+            </ul></li>
+          </ul>
+      </section>
+
+      <section>
+        <h2>Cookies</h2>
+          <ul>
+            <li>Small amount of data, a string (session info/key for example)</li>
+            <li>Not secure unless sent via https</li>
+            <li>Users can manage (modify) cookies</li>
+            <li>Do not store sensitive/important information
+              <ul><li>Price of users' shopping charts or LoggedInAsUser=petri;</li>
+              </ul>
+            </li>
+          </ul>
+          <pre>
+GET / HTTP/1.1
+Host: www.google.fi
+...
+HTTP/1.1 200 OK
+Date: Mon, 22 Nov 2010 08:11:17 GMT
+Set-Cookie: PREF=ID=5b14f22bdaf1e81c:TM=1167000671:LM=1167000671;
+          expires=Sun, 17-Jan-2038 19:14:07 GMT; path=/; domain=.google.com
+...
+GET / HTTP/1.1
+Host: www.google.fi
+Cookie: PREF=ID=5b14f22bdaf1e81c:TM=1167000671:LM=1167000671;
+</pre>
+      </section>
+
+      <section>
+        <h2>Some Properties of Cookies</h2>
+          <ul>
+            <li><b>max_age</b> in seconds</li>
+            <li><b>expires</b> the actual date/time, overwrites max_Age</li>
+            <li><b>path</b> Path prefix where this cookie is
+            valid for (/)</li>
+            <li><b>domain</b> is needed for cross domain cookies, e.g. .example.com</li>
+            <li><b>secure</b> instructs the browser to return this
+            cookie only over https</li>
+          </ul>
+      </section>
+
+      <section>
+        <h2>Third Party Cookies</h2>
+        <p>Cookies are set by the HTTP response and and attached to all requests sent to the domain from where the cookie came from<p>
+        <p>Advertisers (and other sites) set cookies via image (or other resource) downloads</p>
+          <ul class="summary">
+            <li>Allows profiling across multiple websites</li>
+            <li>Most browsers let you deny third party cookies</li>
+          </ul>
+      </section>
+
+      <section>
+        <h2>Using Cookies in Django</h2>
+        <p>Low level and rarely done, though possible</p>
+<pre><code>
+def show_color(request):
+  if "favorite_color" in request.COOKIES:
+      return HttpResponse("Your favorite color is %s" % \
+          request.COOKIES["favorite_color"])
+  else:
+      return HttpResponse("You don't have a favorite color.")
+</code></pre>
+
+<pre><code>
+def set_color(request):
+  # Create an HttpResponse object...
+  response = HttpResponse("Your favorite color is now red")
+  # ... and set a cookie on the response
+  response.set_cookie("favorite_color", "red")
+  return response
+</code></pre>
+<p><b>set_cookie</b> also takes optional arguments with the following
+    defaults</p>
+<pre><code>
+response.set_cookie("favorite_color", "red", <b>max_age</b>=None,
+<b>expires</b>=None, <b>path</b>="/", <b>domain</b>=None, <b>secure</b>=False)
+</code></pre>
+      </section>
+
+      <section>
+        <h2>Session Framework (e.g., in Django)</h2>
+        <p>Cookies, although supported in Django, are low level. For session management, use the <b>Django’s Session Framework</b></p>
+        <ul>
+          <li>Based on cookies, but you don't need to deal with
+          cookies</li>
+          <li>Slightly more secure than using bare cookies (still unsecure)
+          <ul><li>Don’t store data in cookies directly; instead,
+          store a session ID that maps to session data stored on
+          the backend</li>
+          <li>Session IDs are stored as hashes (instead of
+          sequential numbers) which prevents a brute-force attack,
+          and a user will always get a new session ID if they try a
+          non-existent one which prevent session fixation</li>
+          </ul>
+          </li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>State on the server side?</h2>
+        <div class="fragment">
+          <ul>
+            <li>Memory</li>
+            <li>Data-base</li>
+            <li>File</li>
+            <li>Cookies (not on the server side)</li>
+           </ul>
+          <p><a href="https://docs.djangoproject.com/en/1.10/topics/http/sessions/#configuring-the-session-engine">https://docs.djangoproject.com/en/1.10/topics/http/sessions/#configuring-the-session-engine</a></p>
+          <p class="extra">What if the server environment is also distributed?</p>
+        </div>
+      </section>
+
+      <section>
+        <h2>Django Session Framework</h2>
+
+        <p>Edit the <code>MIDDLEWARE_CLASSES</code> setting and make sure it contains <code>'django.contrib.sessions.middleware.SessionMiddleware'</code>. The default settings.py created by django-admin startproject has SessionMiddleware activated.</p>
+
+        <pre><code>
+def post_comment(request, new_comment):
+  if request.session.get('has_commented', False):
+      return HttpResponse("You've already commented.")
+  c = comments.Comment(comment=new_comment)
+  c.save()
+  request.session['has_commented'] = True
+  return HttpResponse('Thanks for your comment!')
+        </code></pre>
+        <p>Example from <a href="https://docs.djangoproject.com/en/1.10/topics/http/sessions/">https://docs.djangoproject.com/en/1.10/topics/http/sessions/</a></p>
+      </section>
+
+      <section>
+        <h2>Session framework != Authentication framework</h2>
+        <p>We will return authentication later.</p>
+      </section>
+
+    </section>
+
+    <section class="django">
+    <section>
+      <h2>User Management</h2>
+      <p>Django provides built-in views for handling common scenarios with handling users, such as registration, login, password change etc.</p>
+      <p>Additionally, Django has a <code>User</code> model that can be used and extended to suit your needs.</p>
+      <p class="dense">Instead of writing your own logic for registration/login etc., use these built-in views. Major reason for using Django's own is security: unless you are really experienced with security and user management, you are more likely to get it wrong with your own solution.</p>
+      <p>An additional benefit is that using built-in functionality is a lot faster and easier. Again, see Django docs on <a href="https://docs.djangoproject.com/en/1.10/topics/auth/">User authentication</a>.</p>
+    </section>
+
+    <section>
+      <h2>Extending User class</h2>
+      <p>You can extend the User class by creating a new model, that has a one-to-one relationship with User:</p>
+      <pre><code>from django.contrib.auth.models import User
+
+class Employee(models.Model):
+  user = models.OneToOneField(User)
+  department = models.CharField(max_length=100)</code></pre>
+      <p>You can then get access to related information on a user:</p>
+      <pre><code>user = User.objects.get(username='fsmith')
+freds_department = user.employee.department</code></pre>
+      <p>Example from <a href="https://docs.djangoproject.com/en/1.10/topics/auth/customizing/#extending-the-existing-user-model">Django docs</a>.</p>
+    </section>
+
+    <section>
+      <h2>User Login</h2>
+      <p>To provide a way for users to login, you need to set up an url for a login view in <code>urls.py</code>:</p>
+      <pre><code>...
+url(r'^login/$', 'django.contrib.auth.views.login'),
+...</code></pre>
+      <p>By default, this view looks for a template in 'register/login.html'. You can configure this by passing the url configuration a dictionary, as such:<pre><code>url(r'^login/$',
+'django.contrib.auth.views.login',
+{'template_name': 'login_template.html'}),</code></pre>
+    </section>
+
+    <section>
+      <h2>User Login Template</h2>
+      <p>You do need to create a template for the login. It will get a variable called <code>form</code>:</p>
+      <pre><code>{% block login %}
+&lt;form method="POST" action="/login/"&gt;
+  {% csrf_token %}
+  {{form.as_p}}
+  &lt;input type="submit" value="Login"&gt;
+&lt;/form&gt;
+{% endblock%}</code></pre>
+    </section>
+
+    <section>
+      <h2>User Registration</h2>
+      <p>For registration of new users, you need to create a view that handles it. An easy way to do this is to use a <code>ModelForm</code> that ties to Django's default <code>User</code> in <code>forms.py</code>:</p>
+      <pre><code>from django import forms
+from django.contrib.auth.models import User
+class UserForm(forms.ModelForm):
+# use password widget so password isn't shown
+password = forms.CharField(widget=forms.PasswordInput())
+
+class Meta:
+  model = User # We want to use User model ...
+  # ... and the form should have the following fields
+  fields = ('username', 'email', 'password')</code></pre>
+      <p>This needs a view, so we'll add to <code>urls.py</code> the following line:</p>
+      <pre><code>url(r'^register/$', 'myblog.views.register'),</code></pre>
+      <p>... and write the view (next slide).</p>
+
+    </section>
+
+    <section>
+      <h2>Registration View Example</h2>
+      <p class="dense">If this view is accessed with POST, it tries to create a new user and if successful it will redirect. If it's called with GET an unbound form will be returned. If creating a new user is not successful it will return bound form with errors explaining what went wrong.</p>
+      <pre><code>from django.shortcuts import render
+from myblog.forms import UserForm
+
+def register(request):
+if request.method == 'POST':
+  user_form = UserForm(data=request.POST)
+  if user_form.is_valid():
+    user = user_form.save()
+    user.set_password(user.password)
+    user.save()
+    return redirect('home_page')
+else:
+  user_form = UserForm()
+
+return render(request,
+        'registration/register.html',
+        {'form': user_form })</code></pre>
+    </section>
+
+    <section>
+      <h2>Logging out</h2>
+      <p>A ready made view for logging out exists as well: to provide a logout link, just add to <code>urls.py</code>:</p>
+      <pre><code>url(r'^logout/$', 'django.contrib.auth.views.logout'),</code></pre>
+      <p>And provide a link to <code>'/logout/'</code>.</p>
+    </section>
+
+    <section>
+      <h2><code>@login_required</code> decorator</h2>
+      <p class="dense">To write views that are only accessible to users that have logged in, you can use a convenient <code>@login_required</code> decorator on your view:</p>
+      <pre><code>@login_required(login_url='/login/')
+def write_blogpost(request):
+  ...</code></pre>
+      <p class="dense">You can now assume in <code>write_blogpost</code> that a user has been successfully authenticated.</p>
+      <p class="dense">The <code>login_url</code> parameter is optional, and it tells the URL that the user should be redirected if they are not logged in. The url for the view will be passed as a parameter on the redirect, e.g. <code>'/login/?next=/write_blogpost/'</code>.</p>
+      <p>See Django docs for <a href="https://docs.djangoproject.com/en/1.10/topics/auth/default/#django.contrib.auth.decorators.login_required">login_required decorator</a>.</p>
+    </section>
+
+    </section>
+
 
       </div>
     </div>
