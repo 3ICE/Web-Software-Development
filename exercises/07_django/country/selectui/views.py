@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 
-from countrydata.models import Continent
+from countrydata.models import Continent, Country
 
 
 def show_continent(request, continent_code=None):
@@ -10,6 +10,8 @@ def show_continent(request, continent_code=None):
     if continent_code:
         continent = get_object_or_404(Continent, code=continent_code)
         context["continent"] = continent
-
-    # Add your answer in 7.3 here
+    #Ajax
+    if request.is_ajax():
+        name = request.POST.get('name')
+        return render(request, "selectui/countrytable.html", context)
     return render(request, "selectui/index.html", context)

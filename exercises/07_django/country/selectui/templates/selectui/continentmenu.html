@@ -1,1 +1,19 @@
-<!-- Write your answer in 7.3 here -->
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block title %}Continents{% endblock %}
+
+{% block header %}
+{{ block.super }}
+<link rel="stylesheet" type="text/css" href="{% static 'selectui/style.css' %}">
+<script type="text/javascript" src="{% static 'selectui/ajax.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+
+<ul id="continentMenu">
+{% for continent in all_continents %}
+		<li><a href="/{{ continent.code }}.html">{{ continent.name }}</a></li>
+{% endfor %}
+</ul>
+
+{% endblock %} 
