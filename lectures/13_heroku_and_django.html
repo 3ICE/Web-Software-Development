@@ -1,0 +1,374 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+
+    <title>Deploying a Django project on Heroku</title>
+
+    <meta name="description" content="Deploying a Django project on Heroku">
+    <meta name="author" content="Lassi Haaranen">
+    <meta name="author" content="Petri Ihantola">
+    <meta name="author" content="Mikko Nurminen">
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+
+    <link rel="stylesheet" href="lib/reveal.js-3.1.0/css/reveal.css">
+    <link rel="stylesheet" href="lib/reveal.js-3.1.0/css/theme/moon.css" id="theme">
+
+    <link rel="stylesheet" href="lib/highlight/styles/monokai_sublime.css">
+
+    <link rel="stylesheet" href="extra/custom.css">
+    <style>
+      body {
+        background: #002b36;
+        background-color: #002b36;
+      }
+      .header_emp {
+        background: purple;
+        background-color: purple;
+        font-style: italic;
+      }
+    </style>
+
+    <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+    <script>
+      if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = 'lib/reveal.js-3.1.0/css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+      }
+    </script>
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+
+  </head>
+
+  <body>
+
+    <div class="reveal">
+      <div class="slides">
+
+      <section class="general_topic">
+        <h2>How to deploy your Django project on Heroku in <span class="header_emp">n</span> easy steps</h2>
+        <h3>The basic, the new and the old</h3>
+      </section>
+
+      <!-- The basic -->
+      <section>
+        <section>
+          <h2>The basic</h2>
+        </section>
+        <section>
+          <h3>Django</h3>
+          <a href="https://www.djangoproject.com/">Django web site</a>
+          <blockquote>Django is a high-level Python Web framework that encourages
+            rapid development and clean, pragmatic design. </blockquote>
+
+          <h3>Heroku</h3>
+          <a href="https://id.heroku.com/login">Heroku web site</a>
+          <blockquote>Cloud Application Platform </blockquote>
+          <p></p>
+        </section>
+        <section>
+          <h3>Let's get the basics right</h3>
+          <p>
+            <a href="https://devcenter.heroku.com/articles/getting-started-with-python#introduction">
+            Getting Started on Heroku with Python</a>
+          </p>
+          <p>
+            First setup your local development environment by installing:
+          </p>
+            <ul>
+              <li>PostgreSQL</li>
+              <li>Python 2.7.X or 3.6.X</li>
+              <li><a href="https://pip.pypa.io/en/stable/installing/">pip package manager</a> for Python </li>
+              <li>3 Python packages: gunicorn, virtualenv and setuptools
+                <ul><li>these can be installed using pip</li></ul>
+              </li>
+            </ul>
+          </section>
+          <section>
+            <h3>On Heroku</h3>
+            <ol>
+              <li>Get <a href="https://signup.heroku.com/">a Heroku account</a></li>
+              <li>Install and test <a href="https://devcenter.heroku.com/articles/getting-started-with-python#set-up">
+                Heroku CLI (Command Line Interface)</a>
+              <ul>
+                <li><a href="https://devcenter.heroku.com/categories/command-line">
+                  Heroku CLI usage instructions</a></li>
+                  <li>$ heroku help</li>
+              </ul></li>
+              <li>You can use <a href="https://devcenter.heroku.com/articles/keys">SSH keys</a> to login to Heroku</li>
+            </ol>
+            <p>
+              <a href="https://devcenter.heroku.com/articles/collaborating">
+                Instructions on adding developers to your Heroku project</a>
+          </p>
+          </section>
+          <section>
+            <h3>Heroku workflow for creating an app</h3>
+            <ol>
+              <li>Create a local git repo</li>
+              <li>Create an application, and configure it for Heroku</li>
+              <li>Write some code and tests</li>
+              <li>Commit your code to local repo</li>
+              <li>Deploy to Heroku by git push heroku master</li>
+              <li>Repeat steps 3 - 5</li>
+            </ol>
+            <p><a href="https://devcenter.heroku.com/articles/development-configuration">A much deeper look</a></p>
+          </section>
+
+          <section>
+            <h3>An example</h3>
+            <ol>
+              <li>'$ git clone https://github.com/heroku/python-getting-started.git' - clone the Heroku Django example</li>
+              <li>''$ cd python-getting-started' - cd to repo root :-)</li>
+              <li>'$ heroku create REPLACE_WITH_YOUR_APP_NAME'
+            <ul><li>creates your app on Heroku, including creating a remote git repo 'heroku'</li></ul></li>
+            <li><i>code, code, code</i></li>
+            <li>Commit to local repo</li>
+            <li>'$ git push heroku master' - push your local changes to Heroku remote repo</li>
+            <li>'$ heroku open' - opens the Heroku app in your browser</li>
+            </ol>
+            <p>And now you have a basic knowledge on working with Heroku. Questions?</p>
+      </section>
+      </section>
+      <!-- The end of basic -->
+
+      <!-- The new -->
+      <section>
+        <section>
+          <h2>The new</h2>
+          <h3>If you have not started your Django project yet</h3>
+        </section>
+          <section>
+            <h3>Template is the way to go</h3>
+            <p><a href="https://devcenter.heroku.com/articles/django-app-configuration#creating-a-new-django-project">
+              Django projects on Heroku Howto</a></p>
+              <p><a href="https://github.com/heroku/heroku-django-template">Heroku Django Starter Template</a> &#9829;s you
+              <p>Let's see how we can use Heroku Starter Template.</p>
+          </section>
+          <section>
+            <h3>What's in the template</h3>
+            <p>First use the template to create the Django project:<br>
+                $ django-admin.py startproject --template=https://github.com/heroku/heroku-django-template/archive/master.zip --name=Procfile your_project_name</p>
+            <p>Let's look inside the created project</p>
+            <ul>
+              <li>runtime.txt - Python 2.7 or 3.6, default 2.7</li>
+              <li>requirements.txt - list of packages needed to run the app</li>
+              <li>Procfile - a list of processes types. web always present, workers if needed</li>
+            </ul>
+          </section>
+          <section>
+            <h3>To Heroku!</h3>
+            <h4>The local git</h4>
+              <p>$ git init</p>
+              <p>$ git add -A</p>
+              <p>$ git commit -m "Initial commit"</p>
+          <h4>Creating a Heroku app</h4>
+              <p>$ heroku create</p>
+              <p>$ git push heroku master</p>
+              <p>$ heroku run python manage.py migrate</p>
+          </section>
+          <section>
+	    <h3>Developing Heroku project locally</h3>
+            <p>See a <a href=" https://github.com/heroku/python-getting-started">ready-made Heroku Django project</a>
+	    <p>You need to install development packages for PostgreSQL and Python to build the Python requirement</p>
+	    <p>Let's use a Python virtual environment</p>
+	    <ul>
+	      <li>$ virtualenv some-good-name</li>
+	      <li>$ source some-good-name/bin/activate</li>
+	    </ul>
+            <p>pip install -r requirements</p>
+            <p>create a local Postgres database and user for it</p>
+        </section>
+        <section>
+          <h3>Local databases and Heroku's DATABASE_URL</h3>
+          <p>The database in use is configured in the projects settings.py-file. Local PostgreSQL:</p>
+
+          <pre>
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.<span class="highlight">postgresql_psycopg2</span>',
+        'NAME': '<span class="highlight">myproject</span>',
+        'USER': '<span class="highlight">myprojectuser</span>',
+        'PASSWORD': '<span class="highlight">password</span>',
+        'HOST': 'localhost',
+        'PORT': '',
+    }
+}
+</pre>
+          <p>For Heroku, you must set a system variable DATABASE_URL in the .env-file. You can get needed value from Heroku website dashboard for the app or console: <br> $ heroku config --app your-heroku-project-name</p>
+        </section>
+        <section>
+          <h3>Migrations</h3>
+          <h4>Running model migrations locally</h4>
+            <p>$ python manage.py makemigrations && python manage.py makemigrations your_app_in_project && python manage.py migrate </p>
+          <h4>Migrations must be done on Heroku too</h4>
+            <p>$ heroku run python manage.py makemigrations && heroku run python manage.py makemigrations your_app_in_project && heroku run python manage.py migrate </p>
+            <h3>That should cover the new. Questions?</h3>
+        </section>
+      </section>
+      <!-- The end of new -->
+
+      <!-- The old -->
+      <section>
+        <section>
+          <h2>The old</h2>
+          <h3>If you have an existing Django project</h3>
+        </section>
+        <section>
+          <h3>How to make a project deployable to Heroku?</h3>
+          <a href="https://devcenter.heroku.com/articles/django-app-configuration#migrating-an-existing-django-project">
+            Heroku Howto</a>
+            <p>When we have an existing Django project codebase things get a bit more complicated,
+              as we have to setup our project to behave like Heroku expects. </p>
+              <p>To achieve that we configure this existing project identically to ones created by using the Heroku Django Template.</p>
+        </section>
+        <section>
+          <h3>The Procfile, requirements.txt and gunicorn</h3>
+          <p>The Procfile must declare a 'web' process type and be located at root of the Django project.</p>
+          <p>Basic Procfile</p>
+          <pre>
+            web: gunicorn your_project_name.wsgi --log-file -
+          </pre>
+          <p>gunicorn must be installed and added to the requirements.txt, so it will be installed on Heroku.</p>
+          <p>$ pip install gunicorn</p>
+          <p>$ pip freeze > requirements.txt</p>
+        </section>
+        <section>
+           <h3>dj-database-url and DATABASE_URL</h3>
+           <p>DATABASE_URL configuration variable defines a Heroku database and connection used in a app. dj-database-url can parse it from a string to Django's database configuration.</p>
+           <p>$ pip install dj-database-url</p>
+           <p>$ pip freeze > requirements.txt</p>
+
+           <p>Modify to your settings.py:</p>
+           <pre>
+             DATABASES = {
+                'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))
+             }
+           </pre>
+        </section>
+        <section>
+          <h3>Setting up static file variables</h3>
+
+<p>Add to settings.py:</p>
+<pre>
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/1.9/howto/static-files/
+
+PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
+
+STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
+STATIC_URL = '/static/'
+
+# Extra places for collectstatic to find static files.
+STATICFILES_DIRS = (
+    os.path.join(PROJECT_ROOT, 'static'),
+)
+</pre>
+
+<p>There should be a STATIC_URL at the end of your settings.py already. Just add the others.</p>
+        </section>
+        <section>
+          <h3>Serving the static files with Whitenoise</h3>
+          <p> pip install whitenoise</p>
+          <p>$ pip freeze > requirements.txt</p>
+
+<p>Add to your settings.py:</p>
+<pre>
+STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+</pre>
+
+<p>Add to your wsgi.py:</p>
+<pre>
+from django.core.wsgi import get_wsgi_application
+from whitenoise.django import DjangoWhiteNoise
+
+application = get_wsgi_application()
+application = DjangoWhiteNoise(application)
+</pre>
+
+        </section>
+        <section>
+          <h3>Local repo, a Heroku app and provisioning a Heroku database</h3>
+          <p>Create or update your local Django repo using git</p>
+          <p>Remember to run python manage.py collectstatic</p>
+          <p>Create a Heroku app</p>
+          <p><a href="https://devcenter.heroku.com/articles/heroku-postgresql#provisioning-the-add-on">
+            Provision a Heroku database</a> for your app, either using the Heroku website
+            dashboard for your Heroku project of using Heroku CLI. Choose the no-cost option, or pay your own. :-)</p>
+            <p>Deploy to Heroku</p>
+            <p>Remember to migrate in Heroku.</p>
+            <p>Unfortunatelu you might have to debug errors. '$ heroku local' is your friend.</p>
+        </section>
+        <section>
+          <h3>That's it for the old. Questions?</h3>
+        </section>
+
+      </section>
+      <!-- The end of olds -->
+
+      <!-- The end notes -->
+      <section>
+          <!-- <section>
+          <h2>The end notes</h2>
+        </section> -->
+        <section>
+          <h2>Questions?</h2>
+          <h3>Thank you and remember to Always Be Coding!</h3>
+        </section>
+      </section>
+
+      <!-- The end of end notes -->
+
+
+
+      </div>
+    </div>
+
+    <script src="lib/jquery-1.11.1.min.js"></script>
+    <script src="lib/reveal.js-3.1.0/lib/js/head.min.js"></script>
+    <script src="lib/reveal.js-3.1.0/js/reveal.js"></script>
+
+    <script>
+
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        fragments: true,
+
+        theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+        transition: Reveal.getQueryHash().transition || 'linear', // default/cube/page/concave/zoom/linear/fade/none
+
+        // Parallax scrolling
+        // parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+        // parallaxBackgroundSize: '2100px 900px',
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+          { src: 'lib/reveal.js-3.1.0/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'lib/reveal.js-3.1.0/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: 'lib/reveal.js-3.1.0/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: 'lib//highlight/highlight.pack.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+          { src: 'lib/reveal.js-3.1.0/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: 'lib/reveal.js-3.1.0/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+        ]
+      });
+
+    </script>
+  </body>
+</html>
